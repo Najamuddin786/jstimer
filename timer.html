@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        .input {
+            display: flex;
+            justify-content: space-between;
+            padding: 5% 25%;
+            background-color: rgb(0, 8, 0);
+        }
+        input {
+            width: 100px;
+            background-color: rgb(0, 8, 0);
+            border: 5px solid rgb(0, 8, 0);
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        button {
+            width: 100px;
+            background-color: rgb(0, 8, 0);
+            border: 5px solid rgb(0, 8, 0);
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin-right: 35px;
+            border: 2px solid gold;
+            padding: 5px 10px;
+            border-radius: 100px;
+            cursor: pointer;
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(0, 8, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #id {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="id">
+            <div class="input">
+                <input type="text" name="" id="h" placeholder="00 h" value=""> 
+                <input type="text" value="" name="" id="m" placeholder="00 m"> 
+                <input type="text" value="" name="" id="s" placeholder="00 s"> 
+            </div>
+            <div class="input">
+                <button onclick="startTimer()">Start</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let intervalId; 
+
+        function startTimer() {
+      
+            clearInterval(intervalId);
+
+            let hours = parseInt(document.getElementById("h").value) || 0;
+            let minutes = parseInt(document.getElementById("m").value) || 0;
+            let seconds = parseInt(document.getElementById("s").value) || 0;
+
+           
+            let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+         
+            intervalId = setInterval(function() {
+             
+                document.getElementById("h").value = Math.floor(totalSeconds / 3600);
+                document.getElementById("m").value = Math.floor((totalSeconds % 3600) / 60);
+                document.getElementById("s").value = totalSeconds % 60;
+
+                totalSeconds--;
+
+                if (totalSeconds < 0) {
+                    clearInterval(intervalId);
+                }
+            }, 1);
+        }
+
+        function pauseTimer() {
+            clearInterval(intervalId);
+        }
+
+        function resetTimer() {
+            clearInterval(intervalId); 
+            document.getElementById("h").value = "";
+            document.getElementById("m").value = "";
+            document.getElementById("s").value = "";
+        }
+    </script>
+</body>
+</html>
